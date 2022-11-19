@@ -43,7 +43,10 @@ class MainWindow:
         self.ui.pushButton_14.clicked.connect(self.gotosupplier)  # from supplier_list to supplier
         self.ui.pushButton_18.clicked.connect(self.gotosupplier)    # from supplier_orders to supplier
 
-        self.ui.pushButton_10.clicked.connect(self.insertSupplier)  # add button in supplier page
+        # Supplier_list
+        self.ui.pushButton_10.clicked.connect(self.insertSupplier_list)  # add button in supplier_list page
+        self.ui.pushButton_11.clicked.connect(self.deleteSupplier_list)  # delete button in supplier_list page
+
 
         # Order page connections
         self.ui.pushButton_22.clicked.connect(self.gotohomepage)  # orders page to home page
@@ -91,7 +94,7 @@ class MainWindow:
         self.ui.stackedWidget.setCurrentWidget(self.ui.supplier)
 
     def gotosupplierlist(self):
-        self.loadsuppliertabledata()
+        self.loadsupplier_listtabledata()
         self.ui.stackedWidget.setCurrentWidget(self.ui.supplier_list)
 
     def gotosupplier_orders(self):
@@ -113,13 +116,14 @@ class MainWindow:
         self.cursor.execute("Insert into inventory values(%s,%s,%s,%s,%s)", (itemid, name, category, quantity, price))
         self.loadinventorytabledata()
 
-    def insertSupplier(self):
+    def insertSupplier_list(self):
         id = self.ui.lineEdit_10.text()
         name = self.ui.lineEdit_11.text()
         email = self.ui.lineEdit_12.text()
         phone = self.ui.lineEdit_13.text()
 
         self.cursor.execute("insert into supplier values(%s,%s,%s,%s)", (id, name, email, phone))
+        self.loadsupplier_listtabledata()
 
     # De
     def deleteInventory(self):
@@ -130,6 +134,15 @@ class MainWindow:
             self.cursor.execute('delete from inventory where Item_ID = %s', (str(data[0]),))
 
             self.loadinventorytabledata()   # After deleting loading data into table widget again
+
+    def deleteSupplier_list(self):
+        index = self.ui.tableWidget_4.currentRow()
+        if index > -1:
+            data = (self.ui.tableWidget_4.item(index, 0).text(),)
+
+            self.cursor.execute('delete from supplier where Supplier_ID = %s', (str(data[0]),))
+
+            self.loadsupplier_listtabledata()  # After deleting loading data into table widget again
 
     # Loading data into tables
     def loadinventorytabledata(self):
@@ -152,7 +165,7 @@ class MainWindow:
             row += 1
         #self.cursor.callproc("procedureaname", (aldkjf,lkdjaflk,jladjf))
 
-    def loadsuppliertabledata(self):
+    def loadsupplier_listtabledata(self):
         self.cursor.execute("select * from supplier")
 
         a = self.cursor.fetchall()

@@ -238,6 +238,8 @@ class Ui_MainWindow(object):
         self.pushButton_11.setObjectName("pushButton_11")
         self.tableWidget_4 = QtWidgets.QTableWidget(self.supplier_list)
         self.tableWidget_4.setGeometry(QtCore.QRect(330, 171, 691, 561))
+        self.tableWidget_4.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
+        self.tableWidget_4.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.tableWidget_4.setObjectName("tableWidget_4")
         self.tableWidget_4.setColumnCount(0)
         self.tableWidget_4.setRowCount(0)
@@ -305,7 +307,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(7)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
