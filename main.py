@@ -286,7 +286,9 @@ class MainWindow:
         email = self.ui.lineEdit_3.text()
         pincode = self.ui.lineEdit_4.text()
 
-        self.cursor.execute("insert into orders values(%s,%s,%s,%s,%s)", (order_id, contact, 0, email, pincode))
+
+        self.cursor.execute("insert into orders values(%s,%s,%s,%s,%s)", (order_id, pincode, 0, contact, email))
+
 
     # displays price in label after selecting item name in combobox
     def display_item_details(self):
@@ -319,7 +321,10 @@ class MainWindow:
         quant = self.ui.spinBox.text()
 
         # inserting all the values after getting them from the text and box fields
-        self.cursor.execute('insert into order_list values(%s, %s, %s, %s, %s)', (order_num, orderid, itemid, quant, 0))
+        try:
+            self.cursor.execute('insert into order_list values(%s, %s, %s, %s, %s)', (order_num, orderid, itemid, quant, 0))
+        except Exception as e:
+            print(e)
 
         # calculating order_price for each item
         self.cursor.callproc('each_order_price', (order_num,))      # calculating order price by calling each_order_price procedure
@@ -381,6 +386,8 @@ if __name__ == '__main__':
 ######################################################## important commands
 
 #python -m PyQt5.uic.pyuic -x "order.ui" -o "Order_layout.py"       #commnad to convert order.ui file to Order_layout (Use in terminal)
+
+
 '''
 try:
     self.cursor.execute('insert into order_list values(%s, %s, %s, %s, %s)', (order_num, orderid, itemid, quant, 0))
