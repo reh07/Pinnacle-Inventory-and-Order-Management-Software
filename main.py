@@ -66,20 +66,9 @@ class MainWindow:
         self.ui.comboBox.activated.connect(self.display_item_details)   # displays price after item is selected from combobox
         self.ui.pushButton_5.clicked.connect(self.insertNew_order_details_items)
 
-
-
-
-
-
-
-
-        # Connecting buttons to functions
-
-
-
-
-
-
+    def storedProcedureData(self):
+        for result in self.cursor.stored_results():
+            return result.fetchall()
 
     def gotohomepage(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.home_page)
@@ -301,32 +290,52 @@ class MainWindow:
     def insertNew_order_details_items(self):        #add button on new order page
         orderid = self.ui.lineEdit.text()
 
-        self.cursor.execute('select Order_Num from order_list order by Order_Num asc')
+        self.cursor.execute('select Order_Num from order_list order by Order_Num asc')      # selects all Order_num into a varialble in ascending order
         a = self.cursor.fetchall()
 
+        # picking the last Order_num to increment it and use it in insert as Order_num is primary key (Here we are looking at the last Order_num and just +1 the next Order_num, if it is null and tabble is empty it sets it to 1)
         if len(a) != 0:
             order_num = a[len(a)-1][0] + 1
         else:
             order_num = 1
 
+        # combobox where you select product list
         item_name = self.ui.comboBox.currentText()
-        self.cursor.execute('select Item_ID from inventory where Item_Name = %s', (item_name,))
+        self.cursor.execute('select Item_ID from inventory where Item_Name = %s', (item_name,))     # Selects Item_ID into itemid variable to to be used in insert
         itemid = self.cursor.fetchone()[0]
 
+        # quantity box
         quant = self.ui.spinBox.text()
 
+        # inserting all the values after getting them from the text and box fields
         self.cursor.execute('insert into order_list values(%s, %s, %s, %s, %s)', (order_num, orderid, itemid, quant, 0))
 
+        # calculating order_price for each item
+        self.cursor.callproc('each_order_price', (order_num,))      # calculating order price by calling each_order_price procedure
+        price = self.storedProcedureData()
+
+        self.cursor.execute('update order_list set Order_Price = %s where Order_Num = %s', (str(price[0][0]), str(order_num)))      # updating the order_price value after it is calculated in the procedure above
+
         '''
-                try:
-                    self.cursor.execute('insert into order_list values(%s, %s, %s, %s, %s)', (order_num, orderid, itemid, quant, 0))
-                except Exception as e:
-                    print(e)
+        self.cursor.execute('select Order_price from order_list where Order_Num = %s', (order_num,))        
+        orderprice = self.cursor.fetchone()[0]
         '''
-        try:
-            self.loadnew_order_data()
-        except Exception as e:
-            print(e)
+
+        # updating the inventory table after placing an order
+
+
+
+
+        # total payment part
+        self.cursor.callproc('total_payment', (orderid,))       # calling the procedure to calculate final payment amount
+        total_payment = self.storedProcedureData()
+        self.ui.t_payment.setText(str(total_payment[0][0]))     # displaying the final payment amount
+        self.cursor.execute('update orders set Payment_amt = %s where Order_ID = %s', (total_payment[0][0], orderid))       # updates payment amount in the orders table after each item is added
+
+
+
+        self.loadnew_order_data()       # loading new order page table after adding an item (updates it after every add)
+
 
     def loadnew_order_data(self):
         orderid = self.ui.lineEdit.text()
@@ -352,6 +361,7 @@ class MainWindow:
 
 
 
+
 ########################################################
 
 if __name__ == '__main__':
@@ -362,3 +372,13 @@ if __name__ == '__main__':
         sys.exit(app.exec_())
     except Exception as e:
         print(e)
+
+
+########################################################
+
+'''
+                try:
+                    self.cursor.execute('insert into order_list values(%s, %s, %s, %s, %s)', (order_num, orderid, itemid, quant, 0))
+                except Exception as e:
+                    print(e)
+        '''
