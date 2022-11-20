@@ -1,4 +1,3 @@
-#python -m PyQt5.uic.pyuic -x "order.ui" -o "Order_layout.py"
 import sys
 from sqldatabase import MySqlDB
 
@@ -66,6 +65,8 @@ class MainWindow:
         self.ui.comboBox.activated.connect(self.display_item_details)   # displays price after item is selected from combobox
         self.ui.pushButton_5.clicked.connect(self.insertNew_order_details_items)
 
+
+    ########################################################################################################################## functions for page to page
     def storedProcedureData(self):
         for result in self.cursor.stored_results():
             return result.fetchall()
@@ -159,7 +160,9 @@ class MainWindow:
 
             self.loadmanage_ordersdata()
 
-    # Loading data into tables
+    ########################################################################################### Loading data into tables
+
+    # table in inventory table
     def loadinventorytabledata(self):
         self.cursor.execute("select * from inventory")
 
@@ -180,6 +183,8 @@ class MainWindow:
             row += 1
         #self.cursor.callproc("procedureaname", (aldkjf,lkdjaflk,jladjf))
 
+
+    # table in supplier list table
     def loadsupplier_listtabledata(self):
         self.cursor.execute("select * from supplier")
 
@@ -198,6 +203,7 @@ class MainWindow:
             self.ui.tableWidget_4.setItem(row, 3, QtWidgets.QTableWidgetItem(str(x[3])))
             row += 1
 
+    # table in automatic supplier orders page
     def loadsupplier_ordersdata(self):
         self.cursor.execute("select * from supplier_orders")
 
@@ -216,6 +222,7 @@ class MainWindow:
             self.ui.tableWidget_5.setItem(row, 3, QtWidgets.QTableWidgetItem(str(x[3])))
             row += 1
 
+    # table in manage orders page
     def loadmanage_ordersdata(self):
         self.cursor.execute("select * from orders")
 
@@ -235,6 +242,7 @@ class MainWindow:
             self.ui.tableWidget_2.setItem(row, 4, QtWidgets.QTableWidgetItem(str(x[4])))
             row += 1
 
+    # table in new page
     def loadmanage_orders_items_data(self):
         index = self.ui.tableWidget_2.currentRow()
         if index > -1:
@@ -257,19 +265,21 @@ class MainWindow:
 
             row += 1
 
+    # loading Item_names into combo box
     def loadneworder_combobox(self):
-        self.cursor.execute('select Item_Name from inventory')
+        self.cursor.execute('select distinct(Item_Name) from inventory')
         temp = []
         for x in self.cursor.fetchall():
             temp.append(str(x[0]))
-
 
         self.ui.comboBox.addItems(temp)
 
 
 
 
-    # New Order Page
+    ################################################################################################################## New Order Page
+
+    # confirm details button fucntionality
     def insertNew_order_details(self):      # confirm details button
         order_id = self.ui.lineEdit.text()
         contact = self.ui.lineEdit_2.text()
@@ -278,7 +288,7 @@ class MainWindow:
 
         self.cursor.execute("insert into orders values(%s,%s,%s,%s,%s)", (order_id, contact, 0, email, pincode))
 
-
+    # displays price in label after selecting item name in combobox
     def display_item_details(self):
 
         itemid = self.ui.comboBox.currentText()
@@ -287,7 +297,8 @@ class MainWindow:
 
         self.ui.price_display_label.setText(str(p))
 
-    def insertNew_order_details_items(self):        #add button on new order page
+    # add button on new order page functionality
+    def insertNew_order_details_items(self):
         orderid = self.ui.lineEdit.text()
 
         self.cursor.execute('select Order_Num from order_list order by Order_Num asc')      # selects all Order_num into a varialble in ascending order
@@ -316,14 +327,8 @@ class MainWindow:
 
         self.cursor.execute('update order_list set Order_Price = %s where Order_Num = %s', (str(price[0][0]), str(order_num)))      # updating the order_price value after it is calculated in the procedure above
 
-        '''
-        self.cursor.execute('select Order_price from order_list where Order_Num = %s', (order_num,))        
-        orderprice = self.cursor.fetchone()[0]
-        '''
-
         # updating the inventory table after placing an order
-
-
+        self.cursor.callproc('update_stock_change', (order_num, itemid))        # this procedure updates the stock quantity
 
 
         # total payment part
@@ -333,10 +338,9 @@ class MainWindow:
         self.cursor.execute('update orders set Payment_amt = %s where Order_ID = %s', (total_payment[0][0], orderid))       # updates payment amount in the orders table after each item is added
 
 
-
         self.loadnew_order_data()       # loading new order page table after adding an item (updates it after every add)
 
-
+    # table on new order page
     def loadnew_order_data(self):
         orderid = self.ui.lineEdit.text()
 
@@ -358,7 +362,7 @@ class MainWindow:
 
             row += 1
 
-
+    # Done button functionality
 
 
 
@@ -374,11 +378,13 @@ if __name__ == '__main__':
         print(e)
 
 
-########################################################
+######################################################## important commands
 
+#python -m PyQt5.uic.pyuic -x "order.ui" -o "Order_layout.py"       #commnad to convert order.ui file to Order_layout (Use in terminal)
 '''
-                try:
-                    self.cursor.execute('insert into order_list values(%s, %s, %s, %s, %s)', (order_num, orderid, itemid, quant, 0))
-                except Exception as e:
-                    print(e)
-        '''
+try:
+    self.cursor.execute('insert into order_list values(%s, %s, %s, %s, %s)', (order_num, orderid, itemid, quant, 0))
+except Exception as e:
+    print(e)
+'''
+
