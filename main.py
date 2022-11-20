@@ -433,9 +433,3 @@ except Exception as e:
     print(e)
 '''
 
-header = self.ui.tableWidget.horizontalHeader()
-header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
-header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
-header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
-header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
-
