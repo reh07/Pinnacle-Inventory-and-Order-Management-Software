@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page"/>
     <widget class="QWidget" name="home_page">
@@ -182,30 +182,17 @@
      <widget class="QComboBox" name="comboBox">
       <property name="geometry">
        <rect>
-        <x>450</x>
+        <x>610</x>
         <y>140</y>
         <width>401</width>
         <height>41</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>460</x>
-        <y>240</y>
-        <width>71</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Item Name</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>760</x>
+        <x>610</x>
         <y>240</y>
         <width>55</width>
         <height>16</height>
@@ -218,7 +205,7 @@
      <widget class="QSpinBox" name="spinBox">
       <property name="geometry">
        <rect>
-        <x>870</x>
+        <x>970</x>
         <y>240</y>
         <width>42</width>
         <height>22</height>
@@ -228,7 +215,7 @@
      <widget class="QPushButton" name="pushButton_5">
       <property name="geometry">
        <rect>
-        <x>450</x>
+        <x>610</x>
         <y>290</y>
         <width>211</width>
         <height>41</height>
@@ -241,9 +228,9 @@
      <widget class="QTableWidget" name="tableWidget">
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>320</x>
         <y>360</y>
-        <width>851</width>
+        <width>701</width>
         <height>331</height>
        </rect>
       </property>
@@ -290,7 +277,7 @@
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>620</x>
+        <x>610</x>
         <y>110</y>
         <width>71</width>
         <height>16</height>
@@ -344,14 +331,14 @@
      <widget class="QPushButton" name="pushButton_7">
       <property name="geometry">
        <rect>
-        <x>480</x>
+        <x>460</x>
         <y>700</y>
-        <width>93</width>
+        <width>131</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Done</string>
+       <string>Confirm order Items</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_19">
@@ -367,16 +354,61 @@
        <string>back</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>320</y>
+        <width>121</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Confirm Details</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_29">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>70</y>
+        <width>111</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Enter order details</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="price_display_label">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>240</y>
+        <width>55</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="manage_orders">
      <widget class="QTableWidget" name="tableWidget_2">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>40</x>
         <y>130</y>
-        <width>961</width>
-        <height>481</height>
+        <width>981</width>
+        <height>211</height>
        </rect>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
       </property>
      </widget>
      <widget class="QLabel" name="label_4">
@@ -400,9 +432,9 @@
      <widget class="QPushButton" name="pushButton_6">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>650</y>
-        <width>111</width>
+        <x>870</x>
+        <y>360</y>
+        <width>151</width>
         <height>41</height>
        </rect>
       </property>
@@ -421,6 +453,55 @@
       </property>
       <property name="text">
        <string>back</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget_6">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>470</y>
+        <width>981</width>
+        <height>251</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_27">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>90</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select Order</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_28">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>430</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Order contents</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_24">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>360</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Display order</string>
       </property>
      </widget>
     </widget>
@@ -919,6 +1000,12 @@
         <width>831</width>
         <height>571</height>
        </rect>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_18">
