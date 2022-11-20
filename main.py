@@ -12,7 +12,7 @@ class MainWindow:
     def __init__(self):
         # Initializing main app window
         self.main_win = QMainWindow()
-        self.main_win.setFixedSize(1050, 800)
+        self.main_win.setFixedSize(1100, 800)
 
         # Initialising the MySql cursor
         self.sql = MySqlDB()
@@ -181,7 +181,13 @@ class MainWindow:
             self.ui.tableWidget_3.setItem(row, 3, QtWidgets.QTableWidgetItem(str(x[3])))
             self.ui.tableWidget_3.setItem(row, 4, QtWidgets.QTableWidgetItem(str(x[4])))
             row += 1
-        #self.cursor.callproc("procedureaname", (aldkjf,lkdjaflk,jladjf))
+
+        header = self.ui.tableWidget_3.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(4, QtWidgets.QHeaderView.Stretch)
 
 
     # table in supplier list table
@@ -203,6 +209,13 @@ class MainWindow:
             self.ui.tableWidget_4.setItem(row, 3, QtWidgets.QTableWidgetItem(str(x[3])))
             row += 1
 
+        header = self.ui.tableWidget_4.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
+
+
     # table in automatic supplier orders page
     def loadsupplier_ordersdata(self):
         self.cursor.execute("select * from supplier_orders")
@@ -221,6 +234,12 @@ class MainWindow:
             self.ui.tableWidget_5.setItem(row, 2, QtWidgets.QTableWidgetItem(str(x[2])))
             self.ui.tableWidget_5.setItem(row, 3, QtWidgets.QTableWidgetItem(str(x[3])))
             row += 1
+
+        header = self.ui.tableWidget_5.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
 
     # table in manage orders page
     def loadmanage_ordersdata(self):
@@ -241,6 +260,13 @@ class MainWindow:
             self.ui.tableWidget_2.setItem(row, 3, QtWidgets.QTableWidgetItem(str(x[3])))
             self.ui.tableWidget_2.setItem(row, 4, QtWidgets.QTableWidgetItem(str(x[4])))
             row += 1
+
+        header = self.ui.tableWidget_2.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(4, QtWidgets.QHeaderView.Stretch)
 
     # table in new page
     def loadmanage_orders_items_data(self):
@@ -265,6 +291,14 @@ class MainWindow:
 
             row += 1
 
+        header = self.ui.tableWidget_6.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
+
+
+    ################################################################################################################## New Order Page
+
     # loading Item_names into combo box
     def loadneworder_combobox(self):
         self.cursor.execute('select distinct(Item_Name) from inventory')
@@ -274,11 +308,6 @@ class MainWindow:
 
         self.ui.comboBox.addItems(temp)
 
-
-
-
-    ################################################################################################################## New Order Page
-
     # confirm details button fucntionality
     def insertNew_order_details(self):      # confirm details button
         order_id = self.ui.lineEdit.text()
@@ -286,8 +315,10 @@ class MainWindow:
         email = self.ui.lineEdit_3.text()
         pincode = self.ui.lineEdit_4.text()
 
-
-        self.cursor.execute("insert into orders values(%s,%s,%s,%s,%s)", (order_id, pincode, 0, contact, email))
+        try:
+            self.cursor.execute("insert into orders values(%s,%s,%s,%s,%s)", (order_id, pincode, 0, contact, email))
+        except Exception as e:
+            print(e)
 
 
     # displays price in label after selecting item name in combobox
@@ -367,6 +398,13 @@ class MainWindow:
 
             row += 1
 
+        header = self.ui.tableWidget.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
+
+
     # Done button functionality
 
 
@@ -394,4 +432,10 @@ try:
 except Exception as e:
     print(e)
 '''
+
+header = self.ui.tableWidget.horizontalHeader()
+header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
+header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
 
