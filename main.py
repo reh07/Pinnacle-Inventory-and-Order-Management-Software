@@ -117,13 +117,14 @@ class MainWindow:
     def insertSupplier_list(self):
         id = self.ui.lineEdit_10.text()
         name = self.ui.lineEdit_11.text()
+        itemid = self.ui.lineEdit_14.text()
         email = self.ui.lineEdit_12.text()
         phone = self.ui.lineEdit_13.text()
 
-        self.cursor.execute("insert into supplier values(%s,%s,%s,%s)", (id, name, email, phone))
+        self.cursor.execute("insert into supplier values(%s,%s,%s,%s,%s)", (id, name, itemid, email, phone))
         self.loadsupplier_listtabledata()
 
-    # De
+    # Delete buttons on different pages
     def deleteInventory(self):
         index = self.ui.tableWidget_3.currentRow()
         if index > -1:
@@ -197,8 +198,8 @@ class MainWindow:
         a = self.cursor.fetchall()
 
         self.ui.tableWidget_4.setRowCount(len(a))
-        self.ui.tableWidget_4.setColumnCount(4)
-        self.ui.tableWidget_4.setHorizontalHeaderLabels(["Supplier ID", "Name", "Email", "Phone Number"])
+        self.ui.tableWidget_4.setColumnCount(5)
+        self.ui.tableWidget_4.setHorizontalHeaderLabels(["Supplier ID", "Name", "Item_ID", "Email", "Phone Number"])
 
         row = 0
 
@@ -207,6 +208,7 @@ class MainWindow:
             self.ui.tableWidget_4.setItem(row, 1, QtWidgets.QTableWidgetItem(str(x[1])))
             self.ui.tableWidget_4.setItem(row, 2, QtWidgets.QTableWidgetItem(str(x[2])))
             self.ui.tableWidget_4.setItem(row, 3, QtWidgets.QTableWidgetItem(str(x[3])))
+            self.ui.tableWidget_4.setItem(row, 4, QtWidgets.QTableWidgetItem(str(x[4])))
             row += 1
 
         header = self.ui.tableWidget_4.horizontalHeader()
@@ -214,6 +216,7 @@ class MainWindow:
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
         header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
         header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(4, QtWidgets.QHeaderView.Stretch)
 
 
     # table in automatic supplier orders page
@@ -360,7 +363,7 @@ class MainWindow:
         # calculating order_price for each item
         self.cursor.callproc('each_order_price', (order_num,))      # calculating order price by calling each_order_price procedure
         price = self.storedProcedureData()
-
+        print('a')
         self.cursor.execute('update order_list set Order_Price = %s where Order_Num = %s', (str(price[0][0]), str(order_num)))      # updating the order_price value after it is calculated in the procedure above
 
         # updating the inventory table after placing an order
