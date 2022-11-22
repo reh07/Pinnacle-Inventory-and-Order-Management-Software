@@ -219,7 +219,7 @@ class Ui_MainWindow(object):
         self.tableWidget_3.setColumnCount(0)
         self.tableWidget_3.setRowCount(0)
         self.label_11 = QtWidgets.QLabel(self.inventory)
-        self.label_11.setGeometry(QtCore.QRect(450, 20, 131, 41))
+        self.label_11.setGeometry(QtCore.QRect(460, 20, 131, 41))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.label_11.setFont(font)
@@ -264,6 +264,9 @@ class Ui_MainWindow(object):
         font.setPointSize(10)
         self.label_19.setFont(font)
         self.label_19.setObjectName("label_19")
+        self.label_35 = QtWidgets.QLabel(self.inventory)
+        self.label_35.setGeometry(QtCore.QRect(540, 720, 281, 16))
+        self.label_35.setObjectName("label_35")
         self.stackedWidget.addWidget(self.inventory)
         self.supplier = QtWidgets.QWidget()
         self.supplier.setObjectName("supplier")
@@ -385,7 +388,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(8)
+        self.stackedWidget.setCurrentIndex(5)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -432,6 +435,7 @@ class Ui_MainWindow(object):
         self.label_18.setText(_translate("MainWindow", "Price"))
         self.pushButton_12.setText(_translate("MainWindow", "back"))
         self.label_19.setText(_translate("MainWindow", "Enter details"))
+        self.label_35.setText(_translate("MainWindow", "(Ensure to add a supplier after adding the item)"))
         self.pushButton_15.setText(_translate("MainWindow", "Supplier list"))
         self.pushButton_16.setText(_translate("MainWindow", "Automatic Supplier Orders"))
         self.label_25.setText(_translate("MainWindow", "Supplier"))
