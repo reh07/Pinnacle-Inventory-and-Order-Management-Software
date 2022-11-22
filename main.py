@@ -3,7 +3,7 @@ from sqldatabase import MySqlDB
 
 from PyQt5 import QtWidgets
 
-from PyQt5.QtWidgets import QMainWindow, QApplication, QCompleter, QComboBox, QMessageBox, QDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication
 
 from Order_layout import Ui_MainWindow
 
@@ -60,10 +60,11 @@ class MainWindow:
 
         # New Order page connections
         self.ui.pushButton_19.clicked.connect(self.gotoorderspage)  # new order page to orders page
-        self.ui.pushButton_3.clicked.connect(self.insertNew_order_details)
+        self.ui.pushButton_3.clicked.connect(self.insertNew_order_details)  # confirm details button
 
         self.ui.comboBox.activated.connect(self.display_item_details)   # displays price after item is selected from combobox
-        self.ui.pushButton_5.clicked.connect(self.insertNew_order_details_items)
+        self.ui.pushButton_5.clicked.connect(self.insertNew_order_details_items)    # add button
+        self.ui.pushButton_7.clicked.connect(self.confirm_order_button)     # confirm order button
 
 
     ############################################################################################################################### functions for page to page navigation
@@ -408,11 +409,18 @@ class MainWindow:
         header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
 
 
-    # Done button functionality
+    # Confirm order button functionality
+    def confirm_order_button(self):
+        self.ui.lineEdit.setText('')
+        self.ui.lineEdit_2.setText('')
+        self.ui.lineEdit_3.setText('')
+        self.ui.lineEdit_4.setText('')
+        self.ui.comboBox.setCurrentIndex(0)
+        self.ui.tableWidget.setRowCount(0)
+        self.ui.price_display_label.setText('')
+        self.ui.t_payment.setText('')
 
-
-
-########################################################
+########################################################################################
 
 if __name__ == '__main__':
     try:
@@ -424,7 +432,7 @@ if __name__ == '__main__':
         print(e)
 
 
-######################################################## important commands
+######################################################################################### important commands
 
 #python -m PyQt5.uic.pyuic -x "order.ui" -o "Order_layout.py"       #commnad to convert order.ui file to Order_layout (Use in terminal)
 
