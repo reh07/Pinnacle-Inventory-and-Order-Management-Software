@@ -66,7 +66,7 @@ class MainWindow:
         self.ui.pushButton_5.clicked.connect(self.insertNew_order_details_items)
 
 
-    ########################################################################################################################## functions for page to page
+    ############################################################################################################################### functions for page to page navigation
     def storedProcedureData(self):
         for result in self.cursor.stored_results():
             return result.fetchall()
@@ -161,7 +161,7 @@ class MainWindow:
 
             self.loadmanage_ordersdata()
 
-    ########################################################################################### Loading data into tables
+    ############################################################################################################# Loading data into table widgets
 
     # table in inventory table
     def loadinventorytabledata(self):
@@ -363,7 +363,7 @@ class MainWindow:
         # calculating order_price for each item
         self.cursor.callproc('each_order_price', (order_num,))      # calculating order price by calling each_order_price procedure
         price = self.storedProcedureData()
-        print('a')
+
         self.cursor.execute('update order_list set Order_Price = %s where Order_Num = %s', (str(price[0][0]), str(order_num)))      # updating the order_price value after it is calculated in the procedure above
 
         # updating the inventory table after placing an order
@@ -429,10 +429,4 @@ if __name__ == '__main__':
 #python -m PyQt5.uic.pyuic -x "order.ui" -o "Order_layout.py"       #commnad to convert order.ui file to Order_layout (Use in terminal)
 
 
-'''
-try:
-    self.cursor.execute('insert into order_list values(%s, %s, %s, %s, %s)', (order_num, orderid, itemid, quant, 0))
-except Exception as e:
-    print(e)
-'''
 
