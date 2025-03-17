@@ -1,4 +1,4 @@
-# Pinnacle (Inventory-and-Order-Mangement-Software-DBMS-Project)
+# Pinnacle (Inventory and Order Management Software DBMS Project)
 This project aims to create an end-to-end software to enable the functioning of inventory and order processes for an online fashion retail business and provide smooth operation of stocking and delivery.
 
 Large scale warehouses and fulfillment centers have become a norm since the dot-com boom and the emergence of online retail which has transformed the way we shop forever and also gave rise to large-scale warehouses to fulfill the ever-growing consumer demand, managing these huge warehouses and the flow of inventory inside them requires specialized software as it is too big and has lots of moving parts which makes it hard to be managed by a team of employees as it leaves room for error which can potentially delay company operations and cause loss of capital. Therefore, here arises a need for a comprehensive and responsive end to end software solution. 
