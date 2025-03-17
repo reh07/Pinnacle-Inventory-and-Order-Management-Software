@@ -8,6 +8,7 @@ The software suite is built by using Python (PyQt5 library) and MySQL database.
  
 ## Objectives
 The goal is to create an Inventory and Order Management System for an Online Fashion Retail company which will:
+- To showcase advanced database design concepts
 - Demonstrate the use of advanced MySQL database features like functions, procedures, and triggers
 -	Enable retaining inventory at an optimum level and never falling below the critical level
 -	Eliminate overstocking and understocking problems
